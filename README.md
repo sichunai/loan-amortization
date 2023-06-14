@@ -18,10 +18,5 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ### Improvements
-format data into decimal digits. 
-Style Table / incoporate sorting features
-Styling
-Remove ability to enter negative numbers for id
-Form Validation
-Error handling / success notification
 Unit Testing
+Refactor snackbar into a reusable component
