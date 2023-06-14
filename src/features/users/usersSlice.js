@@ -6,8 +6,6 @@ const initialState = {
     username: "",
     id: "",
   },
-  // selectedUser: "",
-  // selectedUserId: null,
   selectedUserLoans: [],
   created: false,
   allUsers: [""],
@@ -41,12 +39,7 @@ export const getUserLoans = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    // setSelectedUser(state, action) {
-    //   const { selectedUser } = action.payload;
-    //   state.selectedUser = selectedUser;
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(createUser.fulfilled, (state, action) => {
@@ -61,7 +54,5 @@ const usersSlice = createSlice({
       });
   },
 });
-
-// export const { setSelectedUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

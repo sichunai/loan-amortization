@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, TextField, InputAdornment } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createLoan } from "./loansSlice";
+import "./loansStyles.scss";
 
 export function CreateLoan() {
   const dispatch = useDispatch();
@@ -31,8 +32,8 @@ export function CreateLoan() {
 
   return (
     <div>
-      <div> Create a Loan</div>
-      <div>
+      <h2 className="titleContainer"> Create a Loan</h2>
+      <div className="textfieldContainer">
         <TextField
           id="amount"
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -40,6 +41,9 @@ export function CreateLoan() {
           required
           label="amount"
           value={amount}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onAmountChanged}
         ></TextField>
         <TextField
@@ -48,6 +52,9 @@ export function CreateLoan() {
           required
           label="apr"
           value={apr}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onAprChanged}
         ></TextField>
         <TextField
@@ -56,6 +63,9 @@ export function CreateLoan() {
           required
           label="term"
           value={term}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onTermChanged}
         ></TextField>
         <TextField
@@ -63,6 +73,9 @@ export function CreateLoan() {
           required
           label="status"
           value={status}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onStatusChanged}
         ></TextField>
         <TextField
@@ -71,6 +84,9 @@ export function CreateLoan() {
           required
           label="owner ID"
           value={owner_id}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onOwnerIdChanged}
         ></TextField>
       </div>

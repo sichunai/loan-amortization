@@ -6,15 +6,13 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
-  TableSortLabel,
   TextField,
-  IconButton,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoanSchedule } from "./loansSlice";
+import "./loansStyles.scss";
 
 export function LoanSchedule() {
   const dispatch = useDispatch();
@@ -47,14 +45,17 @@ export function LoanSchedule() {
 
   return (
     <div>
-      <div>Amortization Term </div>
-      <div>
+      <h2>Amortization Term </h2>
+      <div className="textfieldContainer">
         <TextField
           id="loan-id"
           type="number"
           required
           label="Loan ID"
           value={loanId}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onChangeLoanId}
         ></TextField>
         <TextField
@@ -63,6 +64,9 @@ export function LoanSchedule() {
           required
           label="Owner ID"
           value={ownerId}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onChangeOwnerId}
         ></TextField>
       </div>
@@ -70,7 +74,7 @@ export function LoanSchedule() {
         Look up Loan Schedule
       </Button>
 
-      <div>
+      <div className="tableContainer">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -92,11 +96,21 @@ export function LoanSchedule() {
                   <TableCell component="th" scope="row">
                     {MONTHS[loan.month]}
                   </TableCell>
-                  <TableCell align="right">{loan.open_balance}</TableCell>
-                  <TableCell align="right">{loan.total_payment}</TableCell>
-                  <TableCell align="right">{loan.principal_payment}</TableCell>
-                  <TableCell align="right">{loan.interest_payment}</TableCell>
-                  <TableCell align="right">{loan.close_balance}</TableCell>
+                  <TableCell align="right">
+                    {Number.parseFloat(loan.open_balance).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right">
+                    {Number.parseFloat(loan.total_payment).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right">
+                    {Number.parseFloat(loan.principal_payment).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right">
+                    {Number.parseFloat(loan.interest_payment).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right">
+                    {Number.parseFloat(loan.close_balance).toFixed(2)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

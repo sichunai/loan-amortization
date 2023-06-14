@@ -6,20 +6,17 @@ import { getAllUsers, getUserLoans } from "./usersSlice";
 export function UsersList() {
   const dispatch = useDispatch();
   const [selectedUser, setSelectedUser] = useState("");
-  // const [selectedUserId, setSelectedUserId] = useState();
-  const { allUsers, created } = useSelector((state) => state.users);
+  const { allUsers } = useSelector((state) => state.users);
 
   const onUserChanged = (e) => {
-    // dispatch(setSelectedUser({ selectedUser: e.target.value }));
     const selected = allUsers.find((user) => user.username === e.target.value);
     setSelectedUser(e.target.value);
-    // setSelectedUserId(selected.id);
     dispatch(getUserLoans(selected.id));
   };
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [created]);
+  }, []);
 
   const userSelections = allUsers.map((user) => (
     <MenuItem key={user.id} value={user.username}>
@@ -27,8 +24,8 @@ export function UsersList() {
     </MenuItem>
   ));
   return (
-    <div>
-      {/* <div> All Users</div> */}
+    <div className="dropdownContainer">
+      <h2>Select From Users to Look Up Loans</h2>
       <FormControl sx={{ m: 1, minWidth: 180 }}>
         <InputLabel id="demo-simple-select-helper-label">Users</InputLabel>
         <Select

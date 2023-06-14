@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { shareLoanWith } from "./loansSlice";
 
 export function ShareLoan() {
@@ -21,14 +21,17 @@ export function ShareLoan() {
 
   return (
     <div>
-      <div>Share a Loan </div>
-      <div>
+      <h2>Share a Loan </h2>
+      <div className="textfieldContainer">
         <TextField
           id="loan-id"
           type="number"
           required
           label="Loan ID"
           value={loanId}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onChangeLoanId}
         ></TextField>
         <TextField
@@ -37,6 +40,9 @@ export function ShareLoan() {
           required
           label="Owner ID"
           value={ownerId}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onChangeOwnerId}
         ></TextField>
         <TextField
@@ -45,6 +51,9 @@ export function ShareLoan() {
           required
           label="User ID"
           value={userId}
+          InputProps={{
+            inputProps: { min: 1 },
+          }}
           onChange={onChangeUserId}
         ></TextField>
       </div>

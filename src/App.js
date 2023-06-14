@@ -9,10 +9,15 @@ import ShareLoan from "./features/loans/ShareLoan";
 function App() {
   return (
     <div className="loanAppContainer">
-      <CreateUser />
-      <CreateLoan />
-      <UsersList />
-      <Loans />
+      <h1> Loan Amortization App</h1>
+      <div className="createContainer">
+        <CreateUser />
+        <CreateLoan />
+      </div>
+      <div>
+        <UsersList />
+        <Loans />
+      </div>
       <LoanSchedule />
       <ShareLoan />
     </div>

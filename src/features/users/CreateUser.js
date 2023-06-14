@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "./usersSlice";
+import { useDispatch } from "react-redux";
+import { createUser, getAllUsers } from "./usersSlice";
+import "./usersStyles.scss";
 
 export function CreateUser() {
   const dispatch = useDispatch();
@@ -10,14 +11,16 @@ export function CreateUser() {
 
   const onNameChanged = (e) => setName(e.target.value);
 
-  const handleCreateUser = () => {
-    dispatch(createUser(name));
+  const handleCreateUser = async () => {
+    await dispatch(createUser(name));
+    await setName("");
+    dispatch(getAllUsers());
   };
 
   return (
     <div>
-      <div> Create a User for a Loan</div>
-      <div>
+      <h2> Create a User for a Loan</h2>
+      <div className="textfieldContainer">
         <TextField
           id="user-name"
           required
