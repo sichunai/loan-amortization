@@ -10,14 +10,10 @@ function App() {
   return (
     <div className="loanAppContainer">
       <h1> Loan Amortization App</h1>
-      <div className="createContainer">
-        <CreateUser />
-        <CreateLoan />
-      </div>
-      <div>
-        <UsersList />
-        <Loans />
-      </div>
+      <CreateUser />
+      <CreateLoan />
+      <UsersList />
+      <Loans />
       <LoanSchedule />
       <ShareLoan />
     </div>

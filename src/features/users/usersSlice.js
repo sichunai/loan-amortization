@@ -7,8 +7,9 @@ const initialState = {
     id: "",
   },
   selectedUserLoans: [],
-  created: false,
   allUsers: [""],
+  alertType: "warning",
+  alertMessage: "user name cannot be empty",
 };
 
 export const createUser = createAsyncThunk("users/createUser", async (name) => {
@@ -44,13 +45,15 @@ const usersSlice = createSlice({
     builder
       .addCase(createUser.fulfilled, (state, action) => {
         state.userCreated = action.payload;
-        state.created = true;
+        state.alertType = "success";
+        state.alertMessage = "User has been created!";
+      })
+      .addCase(createUser.rejected, (state) => {
+        state.alertType = "error";
+        state.alertMessage = "User was not created.";
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.allUsers = action.payload;
-      })
-      .addCase(getUserLoans.fulfilled, (state, action) => {
-        state.selectedUserLoans = action.payload;
       });
   },
 });

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, TextField, InputAdornment } from "@mui/material";
+import {
+  Alert,
+  Button,
+  InputAdornment,
+  TextField,
+  Snackbar,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createLoan } from "./loansSlice";
 import "./loansStyles.scss";
@@ -11,6 +17,7 @@ export function CreateLoan() {
   const [term, setTerm] = useState();
   const [status, setStatus] = useState();
   const [owner_id, setOwnerId] = useState();
+  const [openAlert, setAlertOpen] = useState(false);
 
   const onAmountChanged = (e) => setAmount(e.target.valueAsNumber);
   const onAprChanged = (e) => setApr(e.target.valueAsNumber);
@@ -19,19 +26,27 @@ export function CreateLoan() {
   const onOwnerIdChanged = (e) => setOwnerId(e.target.valueAsNumber);
 
   function handleCreateLoan() {
-    dispatch(
-      createLoan({
-        amount,
-        apr,
-        term,
-        status,
-        owner_id,
-      })
-    );
+    if (amount && apr && term && status && owner_id) {
+      dispatch(
+        createLoan({
+          amount,
+          apr,
+          term,
+          status,
+          owner_id,
+        })
+      );
+    } else {
+      setAlertOpen(true);
+    }
   }
 
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
+  };
+
   return (
-    <div>
+    <>
       <h2 className="titleContainer"> Create a Loan</h2>
       <div className="textfieldContainer">
         <TextField
@@ -93,7 +108,20 @@ export function CreateLoan() {
       <Button onClick={handleCreateLoan} variant="contained">
         Create Loan
       </Button>
-    </div>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="warning"
+          sx={{ width: "100%" }}
+        >
+          All fields must be filled to create a loan
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 

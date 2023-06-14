@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Alert, Button, TextField, Snackbar } from "@mui/material";
 
-import { useDispatch } from "react-redux";
-import { shareLoanWith } from "./loansSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  shareLoanWith,
+  setAlertMessage,
+  setAlertType,
+  setAlertOpen,
+} from "./loansSlice";
 
 export function ShareLoan() {
   const dispatch = useDispatch();
+  const { alertMessage, alertType, alertOpen } = useSelector(
+    (state) => state.loans
+  );
 
   const [loanId, setLoanId] = useState();
   const [ownerId, setOwnerId] = useState();
@@ -15,12 +23,24 @@ export function ShareLoan() {
   const onChangeOwnerId = (e) => setOwnerId(e.target.value);
   const onChangeUserId = (e) => setUserId(e.target.value);
 
+  const handleCloseAlert = () => {
+    dispatch(setAlertOpen({ isOpen: false }));
+  };
+
   const onShareLoan = () => {
-    dispatch(shareLoanWith({ loanId, ownerId, userId }));
+    if (loanId && ownerId && userId) {
+      dispatch(shareLoanWith({ loanId, ownerId, userId }));
+    } else {
+      dispatch(setAlertType({ type: "warning" }));
+      dispatch(
+        setAlertMessage({ msg: "Missing Loan ID or Owner ID or User ID" })
+      );
+      dispatch(setAlertOpen({ isOpen: true }));
+    }
   };
 
   return (
-    <div>
+    <>
       <h2>Share a Loan </h2>
       <div className="textfieldContainer">
         <TextField
@@ -60,7 +80,20 @@ export function ShareLoan() {
       <Button onClick={onShareLoan} variant="contained">
         Share a Loan
       </Button>
-    </div>
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alertType}
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 

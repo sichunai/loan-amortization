@@ -16,7 +16,7 @@ export function UsersList() {
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, []);
+  }, [dispatch]);
 
   const userSelections = allUsers.map((user) => (
     <MenuItem key={user.id} value={user.username}>
