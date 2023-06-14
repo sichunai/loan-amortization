@@ -6,12 +6,12 @@ import {
   TextField,
   Snackbar,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/hooks";
 import { createLoan } from "./loansSlice";
 import "./loansStyles.scss";
 
 export function CreateLoan() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [amount, setAmount] = useState();
   const [apr, setApr] = useState();
   const [term, setTerm] = useState();
@@ -47,9 +47,10 @@ export function CreateLoan() {
 
   return (
     <>
-      <h2 className="titleContainer"> Create a Loan</h2>
+      <h2 className="titleContainer">Create a Loan</h2>
       <div className="textfieldContainer">
         <TextField
+          data-testid="amount-textfield"
           id="amount"
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
           type="number"

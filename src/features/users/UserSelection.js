@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers, getUserLoans } from "./usersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export function UsersList() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [selectedUser, setSelectedUser] = useState("");
-  const { allUsers } = useSelector((state) => state.users);
+  const { allUsers } = useAppSelector((state) => state.users);
 
   const onUserChanged = (e) => {
     const selected = allUsers.find((user) => user.username === e.target.value);

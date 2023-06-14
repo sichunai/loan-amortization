@@ -12,7 +12,7 @@ import {
   Snackbar,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   getLoanSchedule,
   setAlertMessage,
@@ -37,8 +37,8 @@ const MONTHS = {
 };
 
 export function LoanSchedule() {
-  const dispatch = useDispatch();
-  const { alertMessage, alertType, alertOpen, loanSchedule } = useSelector(
+  const dispatch = useAppDispatch();
+  const { alertMessage, alertType, alertOpen, loanSchedule } = useAppSelector(
     (state) => state.loans
   );
 

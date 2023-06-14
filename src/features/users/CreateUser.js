@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Alert, Button, TextField, Snackbar } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { createUser, getAllUsers } from "./usersSlice";
+import {
+  createUser,
+  getAllUsers,
+  setAlertMessage,
+  setAlertType,
+  setAlertOpen,
+} from "./usersSlice";
 import "./usersStyles.scss";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export function CreateUser() {
-  const dispatch = useDispatch();
-  const { alertMessage, alertType } = useSelector((state) => state.users);
-  const [openAlert, setAlertOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const { alertMessage, alertType, alertOpen } = useAppSelector(
+    (state) => state.users
+  );
   const [name, setName] = useState();
 
   const onNameChanged = (e) => setName(e.target.value);
@@ -17,8 +24,11 @@ export function CreateUser() {
       await dispatch(createUser(name));
       await setName("");
       dispatch(getAllUsers());
+    } else {
+      dispatch(setAlertType({ type: "warning" }));
+      dispatch(setAlertMessage({ msg: "User name cannot be empty" }));
+      dispatch(setAlertOpen({ isOpen: true }));
     }
-    setAlertOpen(true);
   };
 
   const handleCloseAlert = () => {
@@ -41,7 +51,7 @@ export function CreateUser() {
         Create User
       </Button>
       <Snackbar
-        open={openAlert}
+        open={alertOpen}
         autoHideDuration={3000}
         onClose={handleCloseAlert}
       >
@@ -50,7 +60,7 @@ export function CreateUser() {
           severity={alertType}
           sx={{ width: "100%" }}
         >
-          {alertMessage ? alertMessage : "user name cannot be empty"}
+          {alertMessage}
         </Alert>
       </Snackbar>
     </>

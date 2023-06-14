@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Alert, Button, TextField, Snackbar } from "@mui/material";
-
-import { useDispatch, useSelector } from "react-redux";
 import {
   shareLoanWith,
   setAlertMessage,
   setAlertType,
   setAlertOpen,
 } from "./loansSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export function ShareLoan() {
-  const dispatch = useDispatch();
-  const { alertMessage, alertType, alertOpen } = useSelector(
+  const dispatch = useAppDispatch();
+  const { alertMessage, alertType, alertOpen } = useAppSelector(
     (state) => state.loans
   );
 
@@ -41,7 +40,7 @@ export function ShareLoan() {
 
   return (
     <>
-      <h2>Share a Loan </h2>
+      <h2>Share a Loan</h2>
       <div className="textfieldContainer">
         <TextField
           id="loan-id"

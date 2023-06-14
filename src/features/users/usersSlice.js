@@ -8,8 +8,9 @@ const initialState = {
   },
   selectedUserLoans: [],
   allUsers: [""],
-  alertType: "warning",
-  alertMessage: "user name cannot be empty",
+  alertOpen: false,
+  alertType: "",
+  alertMessage: "",
 };
 
 export const createUser = createAsyncThunk("users/createUser", async (name) => {
@@ -40,17 +41,32 @@ export const getUserLoans = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setAlertMessage(state, action) {
+      const { msg } = action.payload;
+      state.alertMessage = msg;
+    },
+    setAlertType(state, action) {
+      const { type } = action.payload;
+      state.alertType = type;
+    },
+    setAlertOpen(state, action) {
+      const { isOpen } = action.payload;
+      state.alertOpen = isOpen;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(createUser.fulfilled, (state, action) => {
         state.userCreated = action.payload;
         state.alertType = "success";
-        state.alertMessage = "User has been created!";
+        state.alertOpen = true;
+        state.alertMessage = "User has been created";
       })
       .addCase(createUser.rejected, (state) => {
         state.alertType = "error";
-        state.alertMessage = "User was not created.";
+        state.alertOpen = true;
+        state.alertMessage = "User was not created";
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.allUsers = action.payload;
@@ -58,4 +74,6 @@ const usersSlice = createSlice({
   },
 });
 
+export const { setAlertMessage, setAlertType, setAlertOpen } =
+  usersSlice.actions;
 export default usersSlice.reducer;

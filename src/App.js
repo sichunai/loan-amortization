@@ -9,7 +9,7 @@ import ShareLoan from "./features/loans/ShareLoan";
 function App() {
   return (
     <div className="loanAppContainer">
-      <h1> Loan Amortization App</h1>
+      <h1>Loan Amortization App</h1>
       <CreateUser />
       <CreateLoan />
       <UsersList />
