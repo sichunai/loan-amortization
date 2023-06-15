@@ -51,7 +51,7 @@ export function CreateLoan() {
   }
 
   const handleCloseAlert = () => {
-    setAlertOpen(false);
+    dispatch(setAlertOpen({ isOpen: false }));
   };
 
   return (

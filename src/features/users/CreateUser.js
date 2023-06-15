@@ -32,7 +32,7 @@ export function CreateUser() {
   };
 
   const handleCloseAlert = () => {
-    setAlertOpen(false);
+    dispatch(setAlertOpen({ isOpen: false }));
   };
 
   return (
