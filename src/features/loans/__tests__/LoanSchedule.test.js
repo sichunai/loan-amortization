@@ -11,7 +11,7 @@ test("screen should have heading with text:", () => {
   );
 });
 
-test("screen should render with loanSchedule state:", () => {
+test("screen should render with loanSchedule", () => {
   const initialState = {
     loanSchedule: [
       {
@@ -23,8 +23,6 @@ test("screen should render with loanSchedule state:", () => {
         close_balance: 297352.8651443344,
       },
     ],
-    loanCreated: {},
-    shareLoanSuccess: null,
     alertMessage: "",
     alertType: "",
     alertOpen: false,

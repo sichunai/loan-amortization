@@ -30,7 +30,6 @@ export function Loans() {
           <TableBody>
             {selectedUserLoans.map((loan) => (
               <TableRow
-                key={loan.amount}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">

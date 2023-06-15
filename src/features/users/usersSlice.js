@@ -2,12 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../../api/client";
 
 const initialState = {
-  userCreated: {
-    username: "",
-    id: "",
-  },
   selectedUserLoans: [],
-  allUsers: [""],
+  allUsers: [],
   alertOpen: false,
   alertType: "",
   alertMessage: "",
@@ -57,8 +53,7 @@ const usersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(createUser.fulfilled, (state, action) => {
-        state.userCreated = action.payload;
+      .addCase(createUser.fulfilled, (state) => {
         state.alertType = "success";
         state.alertOpen = true;
         state.alertMessage = "User has been created";
@@ -70,6 +65,9 @@ const usersSlice = createSlice({
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.allUsers = action.payload;
+      })
+      .addCase(getUserLoans.fulfilled, (state, action) => {
+        state.selectedUserLoans = action.payload;
       });
   },
 });

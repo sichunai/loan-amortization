@@ -1,23 +1,25 @@
 import React, { useState } from "react";
+import { Alert, Button, TextField, Snackbar } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
-  Alert,
-  Button,
-  InputAdornment,
-  TextField,
-  Snackbar,
-} from "@mui/material";
-import { useAppDispatch } from "../../hooks/hooks";
-import { createLoan } from "./loansSlice";
+  createLoan,
+  setAlertMessage,
+  setAlertOpen,
+  setAlertType,
+} from "./loansSlice";
 import "./loansStyles.scss";
 
 export function CreateLoan() {
   const dispatch = useAppDispatch();
+  const { alertMessage, alertType, alertOpen } = useAppSelector(
+    (state) => state.loans
+  );
+
   const [amount, setAmount] = useState();
   const [apr, setApr] = useState();
   const [term, setTerm] = useState();
   const [status, setStatus] = useState();
   const [owner_id, setOwnerId] = useState();
-  const [openAlert, setAlertOpen] = useState(false);
 
   const onAmountChanged = (e) => setAmount(e.target.valueAsNumber);
   const onAprChanged = (e) => setApr(e.target.valueAsNumber);
@@ -25,9 +27,9 @@ export function CreateLoan() {
   const onStatusChanged = (e) => setStatus(e.target.value);
   const onOwnerIdChanged = (e) => setOwnerId(e.target.valueAsNumber);
 
-  function handleCreateLoan() {
+  async function handleCreateLoan() {
     if (amount && apr && term && status && owner_id) {
-      dispatch(
+      await dispatch(
         createLoan({
           amount,
           apr,
@@ -36,8 +38,15 @@ export function CreateLoan() {
           owner_id,
         })
       );
+      setAmount("");
+      setApr("");
+      setTerm("");
+      setStatus("");
+      setOwnerId("");
     } else {
-      setAlertOpen(true);
+      dispatch(setAlertType({ type: "warning" }));
+      dispatch(setAlertMessage({ msg: "Missing field in create loan" }));
+      dispatch(setAlertOpen({ isOpen: true }));
     }
   }
 
@@ -52,7 +61,6 @@ export function CreateLoan() {
         <TextField
           data-testid="amount-textfield"
           id="amount"
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
           type="number"
           required
           label="amount"
@@ -110,16 +118,16 @@ export function CreateLoan() {
         Create Loan
       </Button>
       <Snackbar
-        open={openAlert}
+        open={alertOpen}
         autoHideDuration={3000}
         onClose={handleCloseAlert}
       >
         <Alert
           onClose={handleCloseAlert}
-          severity="warning"
+          severity={alertType}
           sx={{ width: "100%" }}
         >
-          All fields must be filled to create a loan
+          {alertMessage}
         </Alert>
       </Snackbar>
     </>

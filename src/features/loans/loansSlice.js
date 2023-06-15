@@ -2,9 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../../api/client";
 
 const initialState = {
-  loanCreated: {},
   loanSchedule: [],
-  shareLoanSuccess: null,
   alertMessage: "",
   alertType: "",
   alertOpen: false,
@@ -27,7 +25,6 @@ export const getLoanSchedule = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.detail);
     }
   }
@@ -42,7 +39,6 @@ export const shareLoanWith = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.detail);
     }
   }
@@ -67,8 +63,10 @@ const loansSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(createLoan.fulfilled, (state, action) => {
-        state.loanCreated = action.payload;
+      .addCase(createLoan.fulfilled, (state) => {
+        state.alertType = "success";
+        state.alertMessage = "Loan created successfully";
+        state.alertOpen = true;
       })
       .addCase(getLoanSchedule.fulfilled, (state, action) => {
         state.loanSchedule = action.payload;
@@ -79,7 +77,6 @@ const loansSlice = createSlice({
         state.alertOpen = true;
       })
       .addCase(shareLoanWith.fulfilled, (state, action) => {
-        state.shareLoanSuccess = action.payload;
         state.alertMessage = action.payload;
         state.alertType = "success";
         state.alertOpen = true;
