@@ -23,4 +23,4 @@ Refactor Snackbar into a reusable feature.\
 Add keys to mapped table cells and lists.\
 Add more unit tests.\
 Add E2E tests.\
-Remove packages not used / incorporate using styled components.\
+Remove packages not used / incorporate using styled components
