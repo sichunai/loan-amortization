@@ -19,8 +19,8 @@ You may also see any lint errors in the console.
 Runs all the test cases.
 
 ### Future Improvements
-Refactor Snackbar into a reusable feature
-Add keys to mapped table cells and lists
-Add more unit tests
-Add E2E tests
-Remove packages not used / incorporate using styled components
+Refactor Snackbar into a reusable feature.\
+Add keys to mapped table cells and lists.\
+Add more unit tests.\
+Add E2E tests.\
+Remove packages not used / incorporate using styled components.\
